@@ -45,7 +45,33 @@ def build_price_catalog(price_data):
     return catalog
 
 
+def compute_total_sales(sales_data, catalog):
+    """Calculates total sales using catalog prices."""
+    total = 0.0
+
+    if not isinstance(sales_data, list):
+        print("Error: Sales record must be a list.")
+        return total
+
+    for sale in sales_data:
+        if not isinstance(sale, dict):
+            continue
+
+        product = sale.get("Product", sale.get("title"))
+        quantity = sale.get("Quantity", sale.get("quantity"))
+
+        if not isinstance(product, str):
+            continue
+
+        if product in catalog and isinstance(quantity, (int, float)):
+            total += catalog[product] * float(quantity)
+
+    return total
+
+
 def main():
+    start_time = time.time()
+
     if len(sys.argv) != 3:
         print("Usage: python computeSales.py priceCatalogue.json salesRecord.json")
         return
@@ -69,11 +95,15 @@ def main():
 
     catalog = build_price_catalog(price_data)
 
+    total_sales = compute_total_sales(sales_data, catalog)
+    elapsed_time = time.time() - start_time
+
     print("CHECKPOINT: JSON files loaded successfully")
     print(f"CHECKPOINT: price items loaded -> {len(price_data)}")
     print(f"CHECKPOINT: sales items loaded -> {len(sales_data)}")
     print(f"CHECKPOINT: Catalog created with {len(catalog)} entries")
-    print(f"Sample product from catalog -> {list(catalog.items())[:3]}")
+    print(f"CHECKPOINT: Total sales calculated -> {total_sales:.2f}")
+    print(f"CHECKPOINT: Time elapsed (seconds) -> {elapsed_time:.6f}")
     
     
 if __name__ == "__main__":
