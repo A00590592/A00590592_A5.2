@@ -24,6 +24,27 @@ def load_json_file(file_path):
         return None
 
 
+def build_price_catalog(price_data):
+    """Builds a dictionary mapping product title to price."""
+    catalog = {}
+
+    if not isinstance(price_data, list):
+        print("Error: Price catalogue must be a list.")
+        return catalog
+
+    for item in price_data:
+        if not isinstance(item, dict):
+            continue
+
+        title = item.get("title")
+        price = item.get("price")
+
+        if isinstance(title, str) and isinstance(price, (int, float)):
+            catalog[title] = float(price)
+
+    return catalog
+
+
 def main():
     if len(sys.argv) != 3:
         print("Usage: python computeSales.py priceCatalogue.json salesRecord.json")
@@ -46,9 +67,13 @@ def main():
     if price_data is None or sales_data is None:
         return
 
+    catalog = build_price_catalog(price_data)
+
     print("CHECKPOINT: JSON files loaded successfully")
     print(f"CHECKPOINT: price items loaded -> {len(price_data)}")
     print(f"CHECKPOINT: sales items loaded -> {len(sales_data)}")
+    print(f"CHECKPOINT: Catalog created with {len(catalog)} entries")
+    print(f"Sample product from catalog -> {list(catalog.items())[:3]}")
     
     
 if __name__ == "__main__":
