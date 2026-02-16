@@ -3,15 +3,19 @@ import os
 import sys
 import time
 
-def get_results_path():
+def get_results_path(input_file):
     current_dir = os.path.dirname(os.path.abspath(__file__))
     results_dir = os.path.join(current_dir, "..", "results")
-    output_name = "SalesResults.txt"
+
+    input_name = os.path.basename(input_file)
+    base_name, _ = os.path.splitext(input_name)
+
+    result_file = f"{base_name}_Results.txt"
 
     if os.path.isdir(results_dir):
-        return os.path.join(results_dir, output_name)
+        return os.path.join(results_dir, result_file)
 
-    return output_name
+    return result_file
 
 
 def load_json_file(file_path):
@@ -102,8 +106,17 @@ def main():
     print(f"CHECKPOINT: price items loaded -> {len(price_data)}")
     print(f"CHECKPOINT: sales items loaded -> {len(sales_data)}")
     print(f"CHECKPOINT: Catalog created with {len(catalog)} entries")
-    print(f"CHECKPOINT: Total sales calculated -> {total_sales:.2f}")
-    print(f"CHECKPOINT: Time elapsed (seconds) -> {elapsed_time:.6f}")
+
+    print("\nCOMPUTE SALES RESULTS")
+    print(f"TOTAL_COST\t{total_sales:.2f}")
+    print(f"TIME_ELAPSED_SECONDS\t{elapsed_time:.6f}")
+
+    output_path = get_results_path(sales_file)
+
+    with open(output_path, "w", encoding="utf-8") as output_file:
+        output_file.write("COMPUTE SALES RESULTS\n")
+        output_file.write(f"TOTAL_COST\t{total_sales:.2f}\n")
+        output_file.write(f"TIME_ELAPSED_SECONDS\t{elapsed_time:.6f}\n")
     
     
 if __name__ == "__main__":
