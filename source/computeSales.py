@@ -19,30 +19,55 @@ Usage:
 """
 
 
-# -----------------------------------------------------------------------------
+# ---------------------------------------------------------------------
 # pylint_report_v1
 # Pylint notes:
-    # - C0114: Missing module docstring (missing-module-docstring):
-    #   A module docstring is added at the top of the file to describe the program.
-    # - C0103: Module name "computeSales" doesn't conform to snake_case (invalid-name):
-    #   The file name is kept as requested by the assignment
-    #   pylint: disable=invalid-name
-    # - C0303: Trailing whitespace (trailing-whitespace):
-    #   Trailing spaces at the end of lines are removed.
-    # - C0304: Final newline missing (missing-final-newline):
-    #   A final newline is added at the end of the file.
-    # - W0718: Catching too general exception Exception (broad-exception-caught):
-    #   The exception is restricted to (OSError, json.JSONDecodeError).
-    # - C0116: Missing function or method docstring (missing-function-docstring):
-    #   A docstring is added to the function "Main()""
-# -----------------------------------------------------------------------------
+# - C0114: Missing module docstring (missing-module-docstring):
+#   A module docstring is added at the top of the file
+#   to describe the program.
+# - C0103: Module name "computeSales" doesn't conform
+# to snake_case (invalid-name):
+#   The file name is kept as requested by the assignment
+#   pylint: disable=invalid-name
+# - C0303: Trailing whitespace (trailing-whitespace):
+#   Trailing spaces at the end of lines are removed.
+# - C0304: Final newline missing (missing-final-newline):
+#   A final newline is added at the end of the file.
+# - W0718: Catching too general exception
+#   Exception (broad-exception-caught):
+#   The exception is restricted to (OSError, json.JSONDecodeError).
+# - C0116: Missing function or method
+#   docstring (missing-function-docstring):
+#   A docstring is added to the function "main()"
+# ---------------------------------------------------------------------
 
-# -----------------------------------------------------------------------------
+# ---------------------------------------------------------------------
 # pylint_report_v2
 # Pylint notes:
-    # - C0303: Trailing whitespace (trailing-whitespace):
-    #   Trailing spaces at the end of lines are removed.
-# -----------------------------------------------------------------------------
+# - C0303: Trailing whitespace (trailing-whitespace):
+#   Trailing spaces at the end of lines are removed.
+# ---------------------------------------------------------------------
+
+# ---------------------------------------------------------------------
+# flake8_report_v1
+# Flake8 notes:
+# - E116: unexpected indentation (comment):
+#   Indentation in comment blocks is removed and comments are aligned
+#   to the left margin.
+# - E501: line too long (>79 characters):
+#   Long lines are split into multiple lines to comply with the limit.
+# - E302: expected 2 blank lines:
+#   Two blank lines are added between function definitions.
+# ---------------------------------------------------------------------
+
+# ---------------------------------------------------------------------
+# flake8_report_v2
+# Flake8 notes:
+# - W291: trailing whitespace:
+#   Trailing spaces at the end of lines are removed.
+# - E501: line too long (>79 characters):
+#   Long lines are split into multiple lines to comply with the limit.
+# ---------------------------------------------------------------------
 
 # pylint: disable=invalid-name
 
@@ -50,6 +75,7 @@ import json
 import os
 import sys
 import time
+
 
 def get_results_path(input_file):
     """Builds the output file path inside the results folder.
@@ -137,11 +163,14 @@ def compute_total_sales(sales_data, catalog):
 
 def main():
     """ Main execution function.
-        Handles input arguments, runs calculations, prints results, and writes the output file."""
+        Handles input arguments, runs calculations, prints results,
+        and writes the output file."""
     start_time = time.time()
 
     if len(sys.argv) != 3:
-        print("Usage: python computeSales.py priceCatalogue.json salesRecord.json")
+        print(
+            "Usage: python computeSales.py "
+            "priceCatalogue.json salesRecord.json")
         return
 
     price_file = sys.argv[1]
