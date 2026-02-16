@@ -40,7 +40,15 @@ def main():
         print(f"Error: file not found -> {sales_file}")
         return
 
-    print("Files exist and arguments are valid")
+    price_data = load_json_file(price_file)
+    sales_data = load_json_file(sales_file)
+
+    if price_data is None or sales_data is None:
+        return
+
+    print("CHECKPOINT: JSON files loaded successfully")
+    print(f"CHECKPOINT: price items loaded -> {len(price_data)}")
+    print(f"CHECKPOINT: sales items loaded -> {len(sales_data)}")
     
     
 if __name__ == "__main__":
