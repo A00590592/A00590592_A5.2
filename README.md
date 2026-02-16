@@ -12,9 +12,13 @@ It includes one Python script:
 The project is organized using the following directory structure:
 
 A5.2/
+
  ├─ source/
+
  ├─ tests/
+ 
  ├─ results/
+ 
  └─ pylint/
 
 
