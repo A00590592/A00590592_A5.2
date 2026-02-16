@@ -1,3 +1,51 @@
+"""
+A5.2 - Compute Sales
+
+Calculates:
+- TOTAL_COST
+- IGNORED_SALES
+- TIME_ELAPSED_SECONDS
+
+Rules:
+- Invoked from command line
+- Receives two JSON files as parameters:
+    1. Product price catalogue
+    2. Sales record
+- Prints results to screen and writes them to an output file
+- Invalid records are ignored and counted
+
+Usage:
+    python computeSales.py priceCatalogue.json salesRecord.json
+"""
+
+
+# -----------------------------------------------------------------------------
+# pylint_report_v1
+# Pylint notes:
+    # - C0114: Missing module docstring (missing-module-docstring):
+    #   A module docstring is added at the top of the file to describe the program.
+    # - C0103: Module name "computeSales" doesn't conform to snake_case (invalid-name):
+    #   The file name is kept as requested by the assignment
+    #   pylint: disable=invalid-name
+    # - C0303: Trailing whitespace (trailing-whitespace):
+    #   Trailing spaces at the end of lines are removed.
+    # - C0304: Final newline missing (missing-final-newline):
+    #   A final newline is added at the end of the file.
+    # - W0718: Catching too general exception Exception (broad-exception-caught):
+    #   The exception is restricted to (OSError, json.JSONDecodeError).
+    # - C0116: Missing function or method docstring (missing-function-docstring):
+    #   A docstring is added to the function "Main()""
+# -----------------------------------------------------------------------------
+
+# -----------------------------------------------------------------------------
+# pylint_report_v2
+# Pylint notes:
+    # - C0303: Trailing whitespace (trailing-whitespace):
+    #   Trailing spaces at the end of lines are removed.
+# -----------------------------------------------------------------------------
+
+# pylint: disable=invalid-name
+
 import json
 import os
 import sys
@@ -6,7 +54,7 @@ import time
 def get_results_path(input_file):
     """Builds the output file path inside the results folder.
        The output file name is based on the input sales file name."""
-    
+
     current_dir = os.path.dirname(os.path.abspath(__file__))
     results_dir = os.path.join(current_dir, "..", "results")
 
@@ -25,7 +73,7 @@ def load_json_file(file_path):
     try:
         with open(file_path, "r", encoding="utf-8") as file:
             return json.load(file)
-    except Exception as error:
+    except (OSError, json.JSONDecodeError) as error:
         print(f"Error reading JSON -> {file_path}: {error}")
         return None
 
@@ -88,6 +136,8 @@ def compute_total_sales(sales_data, catalog):
 
 
 def main():
+    """ Main execution function.
+        Handles input arguments, runs calculations, prints results, and writes the output file."""
     start_time = time.time()
 
     if len(sys.argv) != 3:
@@ -135,7 +185,7 @@ def main():
         output_file.write(f"TOTAL_COST\t{total_sales:.2f}\n")
         output_file.write(f"IGNORED_SALES\t{ignored}\n")
         output_file.write(f"TIME_ELAPSED_SECONDS\t{elapsed_time:.6f}\n")
-    
-    
+
+
 if __name__ == "__main__":
     main()
