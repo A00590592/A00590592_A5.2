@@ -73,3 +73,6 @@ Example:
 python source/computeSales.py tests/ProductList/ProductList.json tests/TC3/TC3.Sales.json
 
 A short video demonstrating the execution and results of the program is included as part of the submission.
+
+https://drive.google.com/file/d/1fBmNA_MuR-O_pG6uXq-zjtl8KisY33Z8/view?usp=sharing
+
